@@ -10,5 +10,6 @@ automation.
 This content is release under the 3-clause BSD License.
 Parts of this content (index.html, style.css and title-01.png) originally come
 from [Michael Barney](https://github.com/MichaelBarney)'s
-[LinkFree](https://github.com/MichaelBarney/LinkFree), using the "Dark Mode"
+[LinkFree](https://github.com/MichaelBarney/LinkFree), using the
+"[Music](https://github.com/MichaelBarney/LinkFree/tree/master/Templates/Music)"
 template.
