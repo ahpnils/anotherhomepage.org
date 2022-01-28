@@ -10,3 +10,6 @@
 *.orig
 *.bkp
 *.old
+
+# No output directory :
+output/
