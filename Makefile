@@ -28,11 +28,11 @@ clean:
 
 html:
 	mkdir -p ${OUTPUTDIR}
-	cp -rp ${INPUTDIR}/* ${OUTPUTDIR}/
+	rsync -P -rvzc ${INPUTDIR}/ ${OUTPUTDIR}/
 
 publish:
 	mkdir -p ${OUTPUTDIR}
-	cp -rp ${INPUTDIR}/* ${OUTPUTDIR}/
+	rsync -P -rvzc ${INPUTDIR}/ ${OUTPUTDIR}/
 	yuicompressor --type css \
 		-o ${OUTPUTDIR}/style.css \
 		${INPUTDIR}/style.css

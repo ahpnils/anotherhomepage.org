@@ -1,0 +1,5 @@
+# Our security address
+Contact: mailto:security@anotherhomepage.org
+
+# Our PGP key
+Encryption: https://pgp.mit.edu/pks/lookup?op=get&search=0xA89CD879BD02D8C6
