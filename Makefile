@@ -16,6 +16,8 @@ help:
 	@echo ' '
 	@echo 'Usage:'
 	@echo 'make clean                   remove stale files'
+	@echo 'make html                    (re)generate the web site'
+	@echo 'make publish                 generate using production settings'
 	@echo 'make serve [PORT=8000]       serve site at http://localhost:${PORT}'
 	@echo 'make rsync_upload            upload the web site via rsync+ssh'
 	@echo 'make rpm_deps                install software deps for Fedora'
