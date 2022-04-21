@@ -46,7 +46,7 @@ serve:
 
 rsync_upload:
 	rsync -P -rvzc --include tags --cvs-exclude --delete \
-		"${INPUTDIR}/" \
+		"${OUTPUTDIR}/" \
 		"${SSH_USER}"@"${SSH_HOST}":"${SSH_TARGET_DIR}"
 
 rpm_deps:
