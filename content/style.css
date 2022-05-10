@@ -1,10 +1,7 @@
 /* Style Settings */
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap');
- */
 :root {
     --bgColor:#000;
     --accentColor: #E6E6E6;
-    /* --font: 'Montserrat', sans-serif; */
     --font: "monospace", sans-serif;
 }
 
