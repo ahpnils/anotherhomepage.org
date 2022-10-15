@@ -34,7 +34,8 @@ html:
 
 publish:
 	mkdir -p ${OUTPUTDIR}
-	rsync -P -rvzc ${INPUTDIR}/ ${OUTPUTDIR}/
+	rsync -P -rvzc --exclude=.*.swp \
+		${INPUTDIR}/ ${OUTPUTDIR}/
 	yuicompressor --type css \
 		-o ${OUTPUTDIR}/style.css \
 		${INPUTDIR}/style.css
@@ -45,7 +46,9 @@ serve:
 	cd ${OUTPUTDIR} && python3 -m http.server ${HTTP_PORT}
 
 rsync_upload:
-	rsync -P -rvzc --include tags --cvs-exclude --delete \
+	rsync -P -rvzc --include tags \
+		--cvs-exclude --exclude=.*.swp\
+		--delete --delete-excluded \
 		"${OUTPUTDIR}/" \
 		"${SSH_USER}"@"${SSH_HOST}":"${SSH_TARGET_DIR}"
 
