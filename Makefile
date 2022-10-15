@@ -41,6 +41,8 @@ publish:
 		${INPUTDIR}/style.css
 	htmlmin ${INPUTDIR}/index.html \
 		${OUTPUTDIR}/index.html
+	htmlmin ${INPUTDIR}/404.html \
+		${OUTPUTDIR}/404.html
 
 serve: 
 	cd ${OUTPUTDIR} && python3 -m http.server ${HTTP_PORT}
