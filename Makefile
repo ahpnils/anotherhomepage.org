@@ -36,9 +36,7 @@ publish:
 	mkdir -p ${OUTPUTDIR}
 	rsync -P -rvzc --exclude=.*.swp \
 		${INPUTDIR}/ ${OUTPUTDIR}/
-	yuicompressor --type css \
-		-o ${OUTPUTDIR}/style.css \
-		${INPUTDIR}/style.css
+	python-cssmin < ${INPUTDIR}/style.css > ${OUTPUTDIR}/style.css
 	htmlmin ${INPUTDIR}/index.html \
 		${OUTPUTDIR}/index.html
 	htmlmin ${INPUTDIR}/404.html \
