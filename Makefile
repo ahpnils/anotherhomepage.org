@@ -53,4 +53,4 @@ rsync_upload:
 		"${SSH_USER}"@"${SSH_HOST}":"${SSH_TARGET_DIR}"
 
 rpm_deps:
-	sudo dnf -y install yuicompressor python3-htmlmin rsync
+	sudo dnf -y install python3-cssmin python3-htmlmin rsync
