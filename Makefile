@@ -54,3 +54,7 @@ rsync_upload:
 
 rpm_deps:
 	sudo dnf -y install python3-cssmin python3-htmlmin rsync
+
+deb_deps:
+	sudo apt -y install cssmin htmlmin rsync
+	sudo ln -s /usr/bin/cssmin /usr/bin/python-cssmin
