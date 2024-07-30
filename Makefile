@@ -21,6 +21,7 @@ help:
 	@echo 'make serve [PORT=8000]       serve site at http://localhost:${PORT}'
 	@echo 'make rsync_upload            upload the web site via rsync+ssh'
 	@echo 'make rpm_deps                install software deps for Fedora'
+	@echo 'make deb_deps                install software deps for Debian'
 	@echo ' '
 
 clean:
@@ -36,11 +37,7 @@ publish:
 	mkdir -p ${OUTPUTDIR}
 	rsync -P -rvzc --exclude=.*.swp \
 		${INPUTDIR}/ ${OUTPUTDIR}/
-	python-cssmin < ${INPUTDIR}/style.css > ${OUTPUTDIR}/style.css
-	htmlmin ${INPUTDIR}/index.html \
-		${OUTPUTDIR}/index.html
-	htmlmin ${INPUTDIR}/404.html \
-		${OUTPUTDIR}/404.html
+	css-html-js-minify --overwrite ${OUTPUTDIR}/
 
 serve: 
 	cd ${OUTPUTDIR} && python3 -m http.server ${HTTP_PORT}
@@ -53,8 +50,10 @@ rsync_upload:
 		"${SSH_USER}"@"${SSH_HOST}":"${SSH_TARGET_DIR}"
 
 rpm_deps:
-	sudo dnf -y install python3-cssmin python3-htmlmin rsync
+	sudo dnf -y install pipx rsync
+	pipx install css-html-js-minify
 
 deb_deps:
-	sudo apt -y install cssmin htmlmin rsync
-	sudo ln -s /usr/bin/cssmin /usr/bin/python-cssmin
+	sudo DEBIAN_FRONTEND=noninteractive apt-get update
+	sudo DEBIAN_FRONTEND=noninteractive apt-get -q -y --no-install-recommends install pipx rsync
+	pipx install css-html-js-minify
