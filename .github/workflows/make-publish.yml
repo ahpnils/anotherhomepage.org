@@ -1,16 +1,63 @@
 name: make-publish
 on: [push]
+
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   make-publish:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🔎 The name of your branch is ${{ github.ref }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Check out repository
+        uses: actions/checkout@main
       - name: Install dependencies
         run: make deb_deps
       - name: run make publish
         run: make publish
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@main
+        with:
+          name: build-artifacts
+          path: output
+
+  quality:
+    runs-on: ubuntu-latest
+    needs: make-publish
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@main
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@main
+        with:
+          name: build-artifacts
+          path: output
+      - name: Run localhost server
+        run: make bg_serve
+      - name: Wait for Local Server to Start
+        run: sleep 3
+      - name: Check homepage status in localhost
+        run: |
+          URLs=("http://localhost:8000/" \
+                "http://localhost:8000/404.html" \
+                "http://localhost:8000/apple-touch-icon.png" \
+                "http://localhost:8000/apple-touch-icon-precomposed.png" \
+                "http://localhost:8000/electric_sheep.jpg" \
+                "http://localhost:8000/electric_sheep.webp" \
+                "http://localhost:8000/favicon.ico" \
+                "http://localhost:8000/index.html" \
+                "http://localhost:8000/robots.txt" \
+                "http://localhost:8000/style.css" \
+                "http://localhost:8000/.well-known/security.txt" \
+               )
+          for url in "${URLs[@]}"; do
+              response_code=$(curl -s -w "%{http_code}" -I "$url" -o /dev/null)
+              echo -e "e HTTP Status Code for $url: $response_code"
+              echo "HTTP Status Code for $url: $response_code"
+
+              if [ "$response_code" -ne 200 ]; then
+                  echo -e "::error::Error: Unexpected status code for $url"
+                  exit 1
+              fi
+          done
 
