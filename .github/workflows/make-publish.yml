@@ -20,6 +20,7 @@ jobs:
         with:
           name: build-artifacts
           path: output
+          include-hidden-files: true
 
   quality:
     runs-on: ubuntu-latest
