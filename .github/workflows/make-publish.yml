@@ -39,17 +39,17 @@ jobs:
         run: sleep 3
       - name: Check homepage status in localhost
         run: |
-          URLs=("http://localhost:8000/" \
-                "http://localhost:8000/404.html" \
-                "http://localhost:8000/apple-touch-icon.png" \
-                "http://localhost:8000/apple-touch-icon-precomposed.png" \
-                "http://localhost:8000/electric_sheep.jpg" \
-                "http://localhost:8000/electric_sheep.webp" \
-                "http://localhost:8000/favicon.ico" \
-                "http://localhost:8000/index.html" \
-                "http://localhost:8000/robots.txt" \
-                "http://localhost:8000/style.css" \
-                "http://localhost:8000/.well-known/security.txt" \
+          URLs=("http://localhost:8001/" \
+                "http://localhost:8001/404.html" \
+                "http://localhost:8001/apple-touch-icon.png" \
+                "http://localhost:8001/apple-touch-icon-precomposed.png" \
+                "http://localhost:8001/electric_sheep.jpg" \
+                "http://localhost:8001/electric_sheep.webp" \
+                "http://localhost:8001/favicon.ico" \
+                "http://localhost:8001/index.html" \
+                "http://localhost:8001/robots.txt" \
+                "http://localhost:8001/style.css" \
+                "http://localhost:8001/.well-known/security.txt" \
                )
           for url in "${URLs[@]}"; do
               response_code=$(curl -s -w "%{http_code}" -I "$url" -o /dev/null)
