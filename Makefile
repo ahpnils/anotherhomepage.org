@@ -11,7 +11,7 @@ PORT ?= 0
 ifneq ($(PORT), 0)
 	HTTP_PORT += $(PORT)
 else
-	HTTP_PORT += 8000
+	HTTP_PORT += 8001
 endif
 
 help:
@@ -21,7 +21,7 @@ help:
 	@echo 'make clean                   remove stale files'
 	@echo 'make html                    (re)generate the web site'
 	@echo 'make publish                 generate using production settings'
-	@echo 'make serve [PORT=8000]       serve site at http://localhost:8000'
+	@echo 'make serve [PORT=8001]       serve site at http://localhost:8001'
 	@echo 'make sshfs_upload            upload the web site via rsync+sshfs'
 	@echo 'make rpm_deps                install software deps for Fedora'
 	@echo 'make deb_deps                install software deps for Debian'
@@ -40,10 +40,10 @@ publish: html
 	css-html-js-minify --overwrite ${OUTPUTDIR}/
 
 serve: 
-	cd ${OUTPUTDIR} && python3 -m http.server ${HTTP_PORT}
+	cd ${OUTPUTDIR} && python3 -m http.server --protocol HTTP/1.1 --bind 127.0.0.1 ${HTTP_PORT}
 
 bg_serve: 
-	cd ${OUTPUTDIR} && python3 -m http.server ${HTTP_PORT} &
+	cd ${OUTPUTDIR} && python3 -m http.server --protocol HTTP/1.1 --bind 127.0.0.1 ${HTTP_PORT} &
 
 sshfs_upload: publish
 	mkdir -p $(BASEDIR)/sshfs
